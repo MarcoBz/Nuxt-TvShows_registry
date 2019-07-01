@@ -4,6 +4,7 @@ module.exports = {
   /*
   ** Headers of the page
   */
+ serverMiddleware: ['~/server/api/index.js'],
   head: {
     title: process.env.npm_package_name || '',
     meta: [
