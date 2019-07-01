@@ -1,11 +1,11 @@
-const mongoose = require("../mongoConnection")
+const mongoose = require("./mongoConnection")
 
 tvShowSchema = new mongoose.Schema({
     tmdbID: String,
     lastSeason: Number,
     lastEpisode: Number,
-    watchList: Boolean,
     currentWatch: Boolean,
+    title: String,
     lastUpdate: {
         type: Date,
 		default: Date.now,
@@ -21,4 +21,4 @@ userSchema = new mongoose.Schema({
 })
 
 module.exports.userSchema = userSchema
-module.exports.resultSchema = resultSchema
+module.exports.tvShowSchema = tvShowSchema
