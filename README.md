@@ -1,0 +1,1 @@
+# Nuxt-TvShows_registry-
