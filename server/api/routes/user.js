@@ -57,7 +57,7 @@ router.post("/:userName/tvshow", (req, res) => {
                 "content" : false
             }); 
             else{
-                utils.add_tvShow(findUser._id, req.body.tmdbID, req.body.title, req.body.lastEpisode, req.body.lastSeason)
+                utils.add_tvShow(findUser._id, req.body.tmdbID, req.body.title, req.body.lastEpisode, req.body.lastSeason, req.body.isStarted)
                 .then((savedTvShow) =>{ 
                     return res.status(201).send({
                         "message" : "Added tvshow",
@@ -124,76 +124,57 @@ router.get("/:userName/tvshow", (req, res) => {
     })
 })
 
-// router.patch("/:userName/test", (req, res) => {
-//     utils.query_user(req.params.userName)
-//     .then((findUser) => {
-//         if (!findUser)  return res.status(404).send({ 
-//             "message" : "The user does not exist",
-//             "content" : false
-//         });  
-//         if(req.query.testName){
-//             utils.query_test(findUser._id, req.query.testName)
-//             .then((tvShowResponse) => {
-//                 if (!tvShowResponse)  return res.status(404).send({ 
-//                     "message" : "The test does not exist",
-//                     "content" : false
-//                 }); 
-//                 else{
+router.patch("/:userName/tvshow", (req, res) => {
+    utils.query_user(req.params.userName)
+    .then((findUser) => {
+        if (!findUser)  return res.status(404).send({ 
+            "message" : "The user does not exist",
+            "content" : false
+        });  
+        if(req.query.tmdbID){
+            utils.query_tvShow(findUser._id, req.query.tmdbID)
+            .then((tvShowCollection) =>{ 
+                if (!tvShowCollection)  return res.status(404).send({ 
+                    "message" : "The tvshow does not exist in the db",
+                    "content" : false
+                });  
+                else{
 
-//                     let op = req.body.op
-//                     let path = req.body.path
-//                     let value = null
-//                     if (req.body.value) value = req.body.value
+                    let op = req.body.op
+                    let path = req.body.path
+                    let lastEpisode = req.body.lastEpisode
+                    let lastSeason = req.body.lastSeason
+                    let isStarted = req.body.isStarted
 
-//                     if (op === "add"){
-//                         utils.add_testValues(findUser._id, req.query.testName, path, value)
-//                         .then((tvShowResponse) => {
-//                             return res.status(200).send({ 
-//                                 "message" : "Patched",
-//                                 "content" : tvShowResponse
-//                             }); 
-//                         })
-//                     }
+                    if (op == "replace"){
 
-//                     if (op == "replace"){
+                        utils.update_tvShow(findUser._id, req.body.tmdbID, req.body.title, lastEpisode, lastSeason, isStarted)
+                        .then((tvShowResponse) => {
 
-//                         utils.replace_testValues(findUser._id, req.query.testName, path, value)
-//                         .then((tvShowResponse) => {
+                            if (tvShowResponse) return res.status(200).send({ 
+                                "message" : "Patched",
+                                "content" : tvShowResponse
+                            }); 
 
-//                             if (tvShowResponse) return res.status(200).send({ 
-//                                 "message" : "Patched",
-//                                 "content" : tvShowResponse
-//                             }); 
+                            else return res.status(400).send({ 
+                                "message" : "Didn't find the property",
+                                "content" : tvShowResponse
+                            }); 
+                        })                        
 
-//                             else return res.status(400).send({ 
-//                                 "message" : "Didn't find the property",
-//                                 "content" : tvShowResponse
-//                             }); 
-//                         })                        
+                    }
 
-//                     }
-
-//                     // if (op == "remove"){
-
-//                     //     utils.remove_testValues(findUser._id, req.query.testName, path)
-//                     //     .then((tvShowResponse) => {
-//                     //         if (tvShowResponse) return res.status(200).send({ 
-//                     //             "message" : "Patched",
-//                     //             "content" : tvShowResponse
-//                     //         }); 
-
-//                     //         else return res.status(400).send({ 
-//                     //             "message" : "Didn't find the property",
-//                     //             "content" : tvShowResponse
-//                     //         }); 
-//                     //     })                        
-
-//                     // }
-//                 }
-//             })
-//         }
-//     })
-// })
+                }
+            })
+        }
+        else{
+            return res.status(400).send({ 
+                "message" : "TvShow not specified",
+                "content" : false
+            });
+        }
+    })
+})
 
 module.exports = router
 
