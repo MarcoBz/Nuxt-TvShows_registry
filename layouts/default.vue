@@ -1,10 +1,27 @@
 <template>
   <div>
-    <nuxt />
+    <nav-bar/>
+    <nuxt class="main" />
   </div>
 </template>
 
+<script>
+  import NavBar from "~/components/NavBar.vue";
+  
+  export default {
+    components: {
+      NavBar
+    }
+  };
+</script>
+
 <style>
+
+.main{
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
