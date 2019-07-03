@@ -1,20 +1,7 @@
 <template>
   <div class="container-fluid">
       <div class= "row">
-        Dio Cane
-        Dio Cane
-        Dio Cane
-        Dio Cane
-        Dio Cane
-
-        Dio Cane
-        Dio Cane
-        Dio Cane
-        Dio Cane
-        Dio CaneDio Cane
-
-        Dio Cane
-        Dio Cane
+    <button class="btn">test</button>
         
       </div>
   </div>
