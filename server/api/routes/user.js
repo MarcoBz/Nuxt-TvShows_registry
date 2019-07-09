@@ -57,7 +57,7 @@ router.post("/:userName/tvshow", (req, res) => {
                 "content" : false
             }); 
             else{
-                utils.add_tvShow(findUser._id, req.body.tmdbID, req.body.title, req.body.lastEpisode, req.body.lastSeason, req.body.isStarted)
+                utils.add_tvShow(findUser._id, req.body.tmdbID, req.body.title, req.body.lastEpisode, req.body.lastSeason, req.body.status)
                 .then((savedTvShow) =>{ 
                     return res.status(201).send({
                         "message" : "Added tvshow",
@@ -141,14 +141,13 @@ router.patch("/:userName/tvshow", (req, res) => {
                 else{
 
                     let op = req.body.op
-                    let path = req.body.path
                     let lastEpisode = req.body.lastEpisode
                     let lastSeason = req.body.lastSeason
-                    let isStarted = req.body.isStarted
+                    let status = req.body.status
 
                     if (op == "replace"){
 
-                        utils.update_tvShow(findUser._id, req.body.tmdbID, req.body.title, lastEpisode, lastSeason, isStarted)
+                        utils.update_tvShow(findUser._id, req.query.tmdbID, lastEpisode, lastSeason, status)
                         .then((tvShowResponse) => {
 
                             if (tvShowResponse) return res.status(200).send({ 

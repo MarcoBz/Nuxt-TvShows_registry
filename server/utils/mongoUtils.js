@@ -23,7 +23,7 @@ async function create_user(userName){
     return userCollection
 }
 
-async function add_tvShow(userID, tmdbID, title, lastEpisode, lastSeason){
+async function add_tvShow(userID, tmdbID, title, lastEpisode, lastSeason, status){
 
     const TvShow = mongoose.model(userID + "_tvserie", tvShowSchema)
 
@@ -32,7 +32,7 @@ async function add_tvShow(userID, tmdbID, title, lastEpisode, lastSeason){
         title: title,
         lastSeason: lastSeason,
         lastEpisode: lastEpisode,
-        isStarted: isStarted
+        status: status
     })
     tvShowCollection.save()
     return tvShowCollection
@@ -62,18 +62,17 @@ async function query_allTvShows(userID){
     return tvShowsCollection
 }
 
-async function update_tvShow(userID, tmdbID, lastEpisode, lastSeason, isStarted){
-    const TvShow = mongoose.model(userID + "_tvserie", tvShowSchema)
+async function update_tvShow(userID, tmdbID, lastEpisode, lastSeason, status){
 
+    const TvShow = mongoose.model(userID + "_tvserie", tvShowSchema)
     let tvShowCollection = await TvShow
     .findOne({
         tmdbID: tmdbID
     })
-
     tvShowCollection.lastSeason = lastSeason
     tvShowCollection.lastEpisode = lastEpisode
 
-    if (isStarted) tvShowCollection.lastEpisode = isStarted
+    if (status) tvShowCollection.status = status
 
     tvShowCollection.save()
     return tvShowCollection

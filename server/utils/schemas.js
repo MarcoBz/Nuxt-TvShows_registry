@@ -4,7 +4,7 @@ tvShowSchema = new mongoose.Schema({
     tmdbID: String,
     lastSeason: Number,
     lastEpisode: Number,
-    isStarted: Boolean,
+    status: String,
     title: String,
     lastUpdate: {
         type: Date,

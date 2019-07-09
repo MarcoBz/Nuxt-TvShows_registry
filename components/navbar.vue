@@ -8,7 +8,7 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarCollapse">
           <nav class="navbar-nav mr-auto">
-            <nuxt-link class="nuxt-link-class" to="/"> Search </nuxt-link>
+            <nuxt-link class="nuxt-link-class" to="/search"> Search </nuxt-link>
             <nuxt-link class="nuxt-link-class" to="/watching">Watching</nuxt-link>
             <nuxt-link class="nuxt-link-class" to="/watchlist">Watchlist</nuxt-link>
             <nuxt-link class="nuxt-link-class" to="/login">Login</nuxt-link>
